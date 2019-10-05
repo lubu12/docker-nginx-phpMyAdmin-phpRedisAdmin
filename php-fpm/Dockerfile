@@ -3,8 +3,6 @@
 # Advantage to have nginx and php in different containers
 #   https://devops.stackexchange.com/questions/2089/what-are-the-advantages-of-dockerizing-nginx-and-php-in-different-containers
 
-# php-fpm for admin host - phpMyAdmin and phpRedisAdmin
-
 ARG version
 
 FROM php:${version}
