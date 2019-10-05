@@ -1,0 +1,38 @@
+# For setting up admin host - phpMyAdmin and phpRedisAdmin
+# Use networks and depends_on instead of link which is deprecated
+
+version: '3'
+services:
+  nginx:
+    build:
+      context: ./nginx/
+      dockerfile: Dockerfile
+      args:
+        version: ${NGINX_VERSION}
+    environment:
+     - html_volume=${HTML_VOLUME}
+    ports:
+     - "${NGINX_PORT}:${DOCKER_NGINX_PORT}"
+    volumes:
+     - ${HTML_VOLUME}:${HTML_VOLUME}
+    depends_on:
+     - php-fpm
+    networks:
+     - backend
+
+  php-fpm:
+    build:
+      context: ./php-fpm/
+      dockerfile: Dockerfile
+      args:
+        version: ${PHP_FPM_VERSION}
+    environment:
+     - html_volume=${HTML_VOLUME}
+    volumes:
+     - ${HTML_VOLUME}:${HTML_VOLUME}
+    networks:
+     - backend
+
+networks:
+  backend:
+    driver: bridge
