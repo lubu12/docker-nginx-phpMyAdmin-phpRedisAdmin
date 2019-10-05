@@ -1,6 +1,6 @@
-# Nginx (alpine) + PHP-FPM Docker
+# Nginx + PHP-FPM Docker - Alpine
 
-Run Nginx (alpine) and PHP-FPM via docker-compose
+Run Nginx and PHP-FPM - Alpine via docker-compose
 Tested at EC2 - Amazon Linux 2
 
 ## Set up environment variables at .env file
