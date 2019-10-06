@@ -1,6 +1,7 @@
 # Nginx + phpMyAdmin (php-fpm) via Docker - Alpine
 
 Run Nginx and phpMyAdmin (php-fpm) - Alpine via docker-compose
+
 Reference: https://github.com/phpmyadmin/docker
 
 Tested at AWS EC2 and RDS - Amazon Linux 2
