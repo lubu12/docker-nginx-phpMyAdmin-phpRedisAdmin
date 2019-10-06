@@ -22,6 +22,7 @@ RUN set -ex; \
         libpng-dev \
         libwebp-dev \
         libxpm-dev \
+        libzip-dev \
     ; \
     \
     docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr --with-webp-dir=/usr --with-png-dir=/usr --with-xpm-dir=/usr; \
@@ -96,5 +97,17 @@ COPY config.inc.php /etc/phpmyadmin/config.inc.php
 # Copy main script
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
+COPY www.conf /usr/local/etc/php-fpm.d/
+COPY php.ini /usr/local/etc/php/
+COPY php-fpm.conf /usr/local/etc/
+
+RUN addgroup -g 3000 app \
+ && adduser -D -G app -u 3000 -H app
+
+ENV html_volume=/var/www/html
+
+VOLUME ${html_volume}
+
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
+
 CMD ["php-fpm"]
