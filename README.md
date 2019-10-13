@@ -1,10 +1,20 @@
-# Nginx + phpMyAdmin (php-fpm) via Docker - Alpine
+# Nginx + phpMyAdmin + phpRedisAdmin (php-fpm) via Docker - Alpine
 
-Run Nginx and phpMyAdmin (php-fpm) - Alpine via docker-compose
-
-Reference: https://github.com/phpmyadmin/docker
-
+Run Nginx, phpMyAdmin and phpRedisAdmin (php-fpm) - Alpine via docker-compose
 Tested at AWS EC2 and RDS - Amazon Linux 2
+
+Docker Reference: https://github.com/phpmyadmin/docker
+Docker Reference: https://github.com/erikdubbelboer/phpRedisAdmin
+
+## Description
+3 Docker containers: phpMyAdmin and phpRedisAdmin will share the same nginx container.
+
+phpMyAdmin <-> Nginx <-> phpRedisAdmin
+
+phpMyAdmin and phpRedisAdmin containers are separated.  They are using different network interfaces to talk to nginx.  All 3 containers are using the shared html document root, /var/www/html/.  phpMyAdmin is under /var/www/html/phpMyAdmin/, and phpRedisAdmin is under /var/www/html/phpRedisAdmin/. The php-fpm port for phpMyAdmin is changed to 9001 while phpRedisAdmin is using the default port 9000.  It is not necessary to use different ports for 2 isolated php-fpm containers.  Reference: https://github.com/docker-library/php/issues/479
+
+This solution is to run 2 isolate php-fpm containers in different directories, and there is another solution for running isolated containers in 2 different server blocks. Reference: https://dev.to/johnmccuk/isolating-php-with-docker-containers-4epn
+
 
 ## Create environment variables at .env file at working directory
 * `NGINX_VERSION` - Nginx (alpine) docker image tag, e.g., `mainline-alpine`
@@ -38,9 +48,16 @@ sudo useradd -s /sbin/nologin -g 3000 -u 3000 app
 ## Configure nginx.conf and php-fpm configuration files
 ```
 nginx/nginx.conf
+
+# php-fpm configuration for phpMyAdmin
 phpmyadmin/php-fpm.conf
 phpmyadmin/php.ini
 phpmyadmin/www.conf
+
+# php-fpm configuration for phpRedisAdmin
+phpredisadmin/php-fpm.conf
+phpredisadmin/php.ini
+phpredisadmin/www.conf
 ```
 
 ## Add the executable permission to docker-entrypoint.sh to fix the permission denied issue
