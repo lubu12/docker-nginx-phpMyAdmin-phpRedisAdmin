@@ -17,8 +17,10 @@ services:
      - ${HTML_VOLUME}:${HTML_VOLUME}
     depends_on:
      - phpmyadmin
+#     - phpredisadmin
     networks:
-     - backend
+     - backend_phpmyadmin
+     - backend_phpredisadmin
 
   phpmyadmin:
     build:
@@ -30,12 +32,30 @@ services:
      - PMA_HOSTS=${PMA_HOSTS}
      - PMA_ABSOLUTE_URI=${PMA_ABSOLUTE_URI}
     restart: always
+    ports:
+     - "9001:9000"
     volumes:
      - ${HTML_VOLUME}:${HTML_VOLUME}
      - /sessions
+    depends_on:
+     - phpredisadmin
     networks:
-     - backend
+     - backend_phpmyadmin
+
+  phpredisadmin:
+    build:
+      context: ./phpredisadmin/
+      dockerfile: Dockerfile
+      args:
+        version: ${PHP_FPM_VERSION}
+    restart: always
+    volumes:
+     - ${HTML_VOLUME}:${HTML_VOLUME}
+    networks:
+     - backend_phpredisadmin
 
 networks:
-  backend:
+  backend_phpmyadmin:
+    driver: bridge
+  backend_phpredisadmin:
     driver: bridge
