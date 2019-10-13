@@ -62,7 +62,7 @@ phpredisadmin/php.ini
 phpredisadmin/www.conf
 ```
 
-# Create config.inc.php under phpredisadmin/ - phpRedisAdmin configuration file
+## Create config.inc.php under phpredisadmin/ - phpRedisAdmin configuration file
 `touch phpredisadmin/config.inc.php`
 
 Sample file can be obtained from https://github.com/erikdubbelboer/phpRedisAdmin/blob/master/includes/config.sample.inc.php
