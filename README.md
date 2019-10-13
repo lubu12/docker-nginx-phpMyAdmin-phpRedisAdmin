@@ -38,9 +38,9 @@ sudo useradd -s /sbin/nologin -g 3000 -u 3000 app
 ## Configure nginx.conf and php-fpm configuration files
 ```
 nginx/nginx.conf
-php-fpm/php-fpm.conf
-php-fpm/php.ini
-php-fpm/www.conf
+phpmyadmin/php-fpm.conf
+phpmyadmin/php.ini
+phpmyadmin/www.conf
 ```
 
 ## Add the executable permission to docker-entrypoint.sh to fix the permission denied issue
