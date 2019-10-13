@@ -4,7 +4,9 @@ Run Nginx, phpMyAdmin and phpRedisAdmin (php-fpm) - Alpine via docker-compose
 Tested at AWS EC2 and RDS - Amazon Linux 2
 
 Docker Reference: https://github.com/phpmyadmin/docker
+
 Docker Reference: https://github.com/erikdubbelboer/phpRedisAdmin
+
 
 ## Description
 3 Docker containers: phpMyAdmin and phpRedisAdmin will share the same nginx container.
@@ -60,14 +62,20 @@ phpredisadmin/php.ini
 phpredisadmin/www.conf
 ```
 
+# Create config.inc.php under phpredisadmin/ - phpRedisAdmin configuration file
+`touch phpredisadmin/config.inc.php`
+
+Sample file can be obtained from https://github.com/erikdubbelboer/phpRedisAdmin/blob/master/includes/config.sample.inc.php
+
 ## Add the executable permission to docker-entrypoint.sh to fix the permission denied issue
 ```
 chmod +x phpmyadmin/docker-entrypoint.sh
+chmod +x phpredisadmin/docker-entrypoint.sh
 ```
 Reference: https://github.com/composer/docker/issues/7
 
-## Make sure phpMyAdmin directory does not exist under /var/www/html/
-Our phpmyadmin/docker-entrypoint.sh will automatically create phpMyAdmin directory under /var/www/html/. It may cause unexpected issue if it exists.
+## Make sure phpMyAdmin and phpRedisAdmin directores do not exist under /var/www/html/
+Our phpmyadmin/docker-entrypoint.sh and phpredisadmin/docker-entrypoint.sh will automatically create phpMyAdmin and phpRedisAdmin directories under /var/www/html/. It may cause unexpected issue if phpMyAdmin or phpRedisAdmin exists.
 
 ## Build and run with docker-compose
 ```
