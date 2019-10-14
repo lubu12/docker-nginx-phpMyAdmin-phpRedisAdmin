@@ -79,7 +79,7 @@ chmod +x phpredisadmin/docker-entrypoint.sh
 Reference: https://github.com/composer/docker/issues/7
 
 
-## Make sure phpMyAdmin and phpRedisAdmin directores do not exist under /var/www/html/
+## Make sure phpMyAdmin and phpRedisAdmin directories do not exist under /var/www/html/
 Our phpmyadmin/docker-entrypoint.sh and phpredisadmin/docker-entrypoint.sh will automatically create phpMyAdmin and phpRedisAdmin directories under /var/www/html/. It may cause unexpected issue if phpMyAdmin or phpRedisAdmin exists.
 
 
