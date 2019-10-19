@@ -17,7 +17,7 @@ services:
      - ${HTML_VOLUME}:${HTML_VOLUME}
     depends_on:
      - phpmyadmin
-#     - phpredisadmin
+     - phpredisadmin
     networks:
      - backend_phpmyadmin
      - backend_phpredisadmin
