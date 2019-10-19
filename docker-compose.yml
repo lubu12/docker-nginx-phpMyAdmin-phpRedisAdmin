@@ -37,8 +37,6 @@ services:
     volumes:
      - ${HTML_VOLUME}:${HTML_VOLUME}
      - /sessions
-    depends_on:
-     - phpredisadmin
     networks:
      - backend_phpmyadmin
 
