@@ -6,6 +6,9 @@ ARG version
 FROM nginx:${version}
 MAINTAINER Andrew Yeung <andrew@compandsave.com>
 
+ARG version
+ARG html_volume
+
 LABEL app.name="nginx"
 LABEL app.version="${version}"
 
@@ -13,10 +16,6 @@ RUN apk update --no-cache
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Default HTML folder is /var/www/html, it can be overriden by environment at docker-compose.yml
-ENV html_volume=/var/www/html
-
-# Replace the HTML_ROOT by environment variable
 # Use ~ instead of / as the delimiter for sed since html_root is having / character
 RUN sed -i "s~HTML_ROOT~${html_volume}~g" /etc/nginx/nginx.conf
  

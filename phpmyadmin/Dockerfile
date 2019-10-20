@@ -5,6 +5,10 @@ ARG version
 FROM php:${version}
 MAINTAINER Andrew Yeung <andrew@compandsave.com>
 
+ARG version
+ARG html_volume
+ENV html_volume=$html_volume
+
 LABEL app.name="php-fpm"
 LABEL app.version="${version}"
 
@@ -106,8 +110,6 @@ RUN addgroup -g 3000 app \
 
 # Change the port from 9000 to 9001
 RUN sed -i 's/9000/9001/' /usr/local/etc/php-fpm.d/zz-docker.conf
-
-ENV html_volume=/var/www/html
 
 VOLUME ${html_volume}
 

@@ -5,6 +5,10 @@ ARG version
 FROM php:${version}
 MAINTAINER Andrew Yeung <andrew@compandsave.com>
 
+ARG version
+ARG html_volume
+ENV html_volume=$html_volume
+
 LABEL app.name="php-fpm"
 LABEL app.version="${version}"
 
@@ -81,8 +85,6 @@ COPY php-fpm.conf /usr/local/etc/
 
 RUN addgroup -g 3000 app \
  && adduser -D -G app -u 3000 -H app
-
-ENV html_volume=/var/www/html
 
 VOLUME ${html_volume}
 

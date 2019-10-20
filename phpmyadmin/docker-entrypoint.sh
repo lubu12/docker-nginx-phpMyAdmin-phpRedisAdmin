@@ -17,8 +17,8 @@ if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
     fi
 
     chown app:app /sessions /var/nginx/client_body_temp
-    mkdir /var/www/html/phpMyAdmin
-    cd /var/www/html/phpMyAdmin
+    mkdir ${html_volume}/phpMyAdmin
+    cd ${html_volume}/phpMyAdmin
 
     if ! [ -e index.php -a -e db_designer.php ]; then
         echo >&2 "phpMyAdmin not found in $PWD - copying now..."
